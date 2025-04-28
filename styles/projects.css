@@ -1,0 +1,147 @@
+#projects {
+  background-color: var(--gray-200);
+  justify-items: center;
+  min-height: 100vh;
+  padding: 72px 120px 144px;
+
+  .subtitle {
+    color: var(--red);
+  }
+
+  h2 {
+    font: var(--title-md);
+    color: var(--gray-600);
+  }
+
+  .header-project {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 56px;
+    align-items: center;
+
+    h2 {
+      margin-top: 8px;
+    }
+  }
+}
+
+.project-card {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 12px 17px;
+  border-radius: 12px;
+  width: 330px;
+  height: 280px;
+  background-color: var(--gray-300);
+
+  h3 {
+    margin-bottom: 8px;
+  }
+}
+
+.project img {
+  border-radius: 8px;
+  width: 306px;
+  height: 156px;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+.project:hover {
+  border: 1.5px solid var(--gray-400);
+}
+
+@media (max-width: 500px) {
+  #projects {
+    padding-block: 0px 20px;
+    padding-inline: 10vw;
+    text-align: center;
+  }
+
+  .project-card {
+    display: flex;
+    justify-content: center;
+  }
+  .project {
+    text-align: start;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  #projects {
+    display: flex;
+    justify-content: center;
+    padding-inline: 50%;
+    text-align: center;
+    padding-block: 0px 20px;
+  }
+  .header-project {
+    white-space: nowrap;
+  }
+
+  .project-card {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .project {
+    padding: 10px;
+    width: 250px;
+    height: 210px;
+
+    img {
+      width: 230px;
+      height: 90px;
+    }
+
+    h3 {
+      font-size: 14px;
+    }
+    span {
+      font-size: 12px;
+    }
+  }
+}
+@media (min-width: 800px) and (max-width: 1024px) {
+  #projects {
+    padding-inline: 5%;
+    padding-block: 10px;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  #projects {
+    padding-block: 10px;
+  }
+}
+
+@media (max-height: 900px) {
+  #projects {
+    padding-block: 0px 70px;
+  }
+
+  .project-card {
+    gap: 15px;
+  }
+  .project {
+    width: 280px;
+    height: 210px;
+
+    h3 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    img {
+      width: 256px;
+      height: 110px;
+      margin-bottom: 5px;
+    }
+
+    span {
+      font-size: 13px;
+    }
+  }
+}

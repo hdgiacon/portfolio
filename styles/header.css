@@ -1,0 +1,147 @@
+.intro {
+  background: url("../assets/background/Background_Intro.png") no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  background-position: center;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  padding: 120px 180px 80px;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subtitle {
+  padding-top: 56px;
+  font: var(--subtitle);
+  color: var(--gray-500);
+
+  span {
+    color: var(--red);
+  }
+}
+
+h1 {
+  margin-top: 8px;
+  font: var(--title-lg);
+  color: var(--gray-600);
+}
+
+h1 + p {
+  margin-top: 20px;
+  color: var(--gray-400);
+}
+
+.avatar {
+  position: relative;
+
+  .picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 999px;
+    border: 2px solid var(--red);
+    padding: 5px;
+  }
+
+  .icon {
+    position: absolute;
+    bottom: 0;
+    right: -5px;
+  }
+}
+
+.cards {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--gray-300);
+  border-radius: 999px;
+  padding: 8px 16px;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  span {
+    color: var(--gray-500);
+  }
+}
+
+.next {
+  display: flex;
+  justify-content: center;
+  padding-block: 200px 57px;
+
+  & a:hover {
+    transform: scale(1.1);
+    filter: brightness(300%);
+    transition: 0.2s ease-in-out;
+  }
+}
+
+@media (max-height: 800px) {
+  .next {
+    padding-block: 60px;
+  }
+  .bio {
+    padding: 90px 180px 60px;
+  }
+}
+
+@media (max-width: 500px) {
+  .next {
+    padding: 10vh;
+
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  .subtitle {
+    padding-top: 25px;
+  }
+  .bio {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .info h1 {
+    font-size: 48px;
+  }
+  h1 + p {
+    margin-top: 5px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .bio {
+    padding-inline: 25px;
+    padding-top: 20px;
+  }
+
+  .info {
+    text-align: center;
+  }
+}
+@media (min-width: 800px) and (max-width: 1024px) {
+  .bio {
+    padding-top: 50px;
+  }
+  .info {
+    text-align: center;
+  }
+}
