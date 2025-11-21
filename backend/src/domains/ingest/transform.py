@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from github.NamedUser import NamedUser
 from github.AuthenticatedUser import AuthenticatedUser
 
-from src.core import get_settings
+from src.core.config import get_settings
 
 SECTION_MAP = {
     "experiência profissional": "experience",
@@ -24,7 +24,7 @@ class TransformData:
     """"""
 
     def __init__(self):
-        self.ignore_repos = get_settings.IGNORE_REPOS
+        self.ignore_repos = get_settings().IGNORE_REPOS
         self.output_github_json = "data/processed/github_data.json"
         self.output_curriculum_json = "data/processed/curriculum_data.json"
 
@@ -34,25 +34,20 @@ class TransformData:
 
         text = html.unescape(text)
 
-        text = re.sub(r'<[^>]+>', ' ', text)
+        text = re.sub(r'```[\s\S]*?```', '', text)
+
+        text = re.sub(r'`[^`]*`', '', text)
 
         text = re.sub(r'!\[[^\]]*\]\([^\)]*\)', '', text)
+        text = re.sub(r'<[^>]+>', ' ', text)
 
         text = re.sub(r'\[\s*\]\([^\)]*\)', '', text)
-
         text = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', text)
-
         text = re.sub(r'\[\^?\d+\]', '', text)
-
-        text = re.sub(r'```[\w]*', '', text) 
-        text = str.replace(r'```', '', text)
-
-        text = text.replace('`', '')
 
         text = re.sub(r'[#\*_>~]', '', text)
         
         text = re.sub(r'^\s*[-+]\s+', '', text, flags = re.MULTILINE)
-
         text = re.sub(r'\s+', ' ', text).strip()
 
         return text
@@ -62,7 +57,7 @@ class TransformData:
 
         documents = []
 
-        logger.start(f"Processing profile: {user.name}")
+        logger.info(f"Processing profile: {user.name}")
 
         bio_content = f"Nome: {user.name}. "
         
@@ -139,7 +134,7 @@ class TransformData:
     def parse_structured_curriculum(self, full_text: str) -> None:
         """"""
 
-        logger.start("Processing curriculum...")
+        logger.info("Processing curriculum...")
 
         lines = full_text.split('\n')
         lines_to_process = lines[11:] if len(lines) > 11 else lines

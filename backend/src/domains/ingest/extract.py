@@ -6,7 +6,7 @@ from github import Github, NamedUser, AuthenticatedUser
 from github.NamedUser import NamedUser
 from github.AuthenticatedUser import AuthenticatedUser
 
-from src.core import get_settings
+from src.core.config import get_settings
 
 
 class ExtractData:
@@ -14,7 +14,7 @@ class ExtractData:
 
     def __init__(self) -> None:
         self.curriculum_pdf_path = "data/raw/curriculum_vitae_hector_dorrighello_giacon.pdf"
-        self.github_token = get_settings.GITHUB_TOKEN
+        self.github_token = get_settings().GITHUB_TOKEN
 
     def get_pdf_text(self) -> str:
         """"""

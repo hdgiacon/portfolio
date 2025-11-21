@@ -1,7 +1,7 @@
 import json
 import shutil
 import os
-from typing import List
+from typing import List, Optional
 from pydantic import ValidationError
 from loguru import logger
 
@@ -17,17 +17,33 @@ class LoadData:
 
     def __init__(self):
         self.chroma_path = "data/output/chroma_db"
-        self.processed_json_paths = [os.path.join("data/processed", f) for f in os.listdir("data/processed/")]
+        self.default_json_dir = "data/processed"
+        
 
 
-    def load_and_validate(self) -> List[Document]:
+    def load_and_validate(self, file_paths: Optional[List[str]] = None) -> List[Document]:
         """"""
 
         lc_documents = []
-
-        os.makedirs("data/output/", exist_ok = True)
         
-        for file_path in self.processed_json_paths:
+        os.makedirs("data/output/", exist_ok=True)
+        
+        if file_paths:
+            target_paths = file_paths
+        
+        else:
+            if os.path.exists(self.default_json_dir):
+                target_paths = [os.path.join(self.default_json_dir, f) for f in os.listdir(self.default_json_dir)]
+            
+            else:
+                target_paths = []
+
+        for file_path in target_paths:
+            if not os.path.exists(file_path):
+                logger.warning(f"File not found: {file_path}")
+
+                continue
+
             with open(file_path, "r", encoding = "utf-8") as f:
                 raw_data = json.load(f)
                 
@@ -59,7 +75,7 @@ class LoadData:
 
         docs = self.load_and_validate()
 
-        logger.start("Loading embedding model (HuggingFace)...")
+        logger.info("Loading embedding model (HuggingFace)...")
 
         embedding_model = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2")
 
