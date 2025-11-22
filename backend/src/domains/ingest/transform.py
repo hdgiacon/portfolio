@@ -75,7 +75,7 @@ class TransformData:
                 "source": "github",
                 "type": "profile",
                 "url": user.html_url,
-                "last_update": datetime.now(timezone.utc)
+                "last_update": datetime.now(timezone.utc).isoformat()
             }
         })
 

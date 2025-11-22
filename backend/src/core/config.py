@@ -6,6 +6,12 @@ class Settings(BaseSettings):
     GITHUB_TOKEN: str
     
     IGNORE_REPOS: List[str]
+
+    SENTENSE_TRANSFORMER_MODEL: str
+
+    GROK_MODEL: str
+
+    GROQ_API_KEY: str
     
     model_config = SettingsConfigDict(
         env_file = ".env",

@@ -4,6 +4,18 @@ import pytest
 from src.domains.ingest.load import LoadData
 
 
+@pytest.fixture(autouse=True)
+def setup_env(monkeypatch: pytest.MonkeyPatch):
+    """"""
+
+    monkeypatch.setenv("GITHUB_TOKEN", "fake_token")
+    monkeypatch.setenv("IGNORE_REPOS", "[]")
+    monkeypatch.setenv("GROQ_API_KEY", "fake_key")
+    
+    monkeypatch.setenv("SENTENSE_TRANSFORMER_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
+    monkeypatch.setenv("GROK_MODEL", "llama-3.3-70b-versatile")
+
+
 @pytest.fixture
 def loader(tmp_path: str) -> LoadData:
     """"""

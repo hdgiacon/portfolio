@@ -7,10 +7,12 @@ from loguru import logger
 
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 
 from src.domains.ingest.schemas import PortfolioItem
+from src.core.config import get_settings
 
+# TODO: usar formato TOON?
 
 class LoadData:
     """"""
@@ -18,7 +20,7 @@ class LoadData:
     def __init__(self):
         self.chroma_path = "data/output/chroma_db"
         self.default_json_dir = "data/processed"
-        
+        self.sentence_transformer_model = get_settings().SENTENSE_TRANSFORMER_MODEL
 
 
     def load_and_validate(self, file_paths: Optional[List[str]] = None) -> List[Document]:
@@ -26,7 +28,7 @@ class LoadData:
 
         lc_documents = []
         
-        os.makedirs("data/output/", exist_ok=True)
+        os.makedirs("data/output/", exist_ok = True)
         
         if file_paths:
             target_paths = file_paths
@@ -77,7 +79,7 @@ class LoadData:
 
         logger.info("Loading embedding model (HuggingFace)...")
 
-        embedding_model = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2")
+        embedding_model = HuggingFaceEmbeddings(model_name = self.sentence_transformer_model)
 
         logger.info(f"Creating vectorstore in {self.chroma_path}...")
         
